@@ -1,0 +1,8 @@
+<view>
+  <import src="../../components/toast/toast.wxml" />
+  <template is="toast" data="{{ ..._toast_ }}" />
+  <view>
+    <text>this is a detail page!</text>
+  </view>
+  <button bindtap="showToast">显示Toast</button>
+</view>
