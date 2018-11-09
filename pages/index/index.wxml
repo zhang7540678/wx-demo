@@ -1,13 +1,41 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+  <scroll-view
+    scroll-y>
+    <swiper
+      class="swiper"
+      indicator-dots='true'
+      duration="1000"
+      interval='3000'
+      autoplay='true'
+      circular='true'>
+      <block wx:for="{{ bannerList }}" wx:key="{{ index }}">
+        <swiper-item>
+          <image class='swiper-item' src="{{ item.picUrl }}" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <scroll-view
+      style="width:100%;"
+      scroll-x
+      bindscrolltoupper="toLeft"
+      bindscrolltolower="toRight"
+      class='nav-container'>
+      <block wx:for="{{ navList }}" wx:key="{{ index }}">
+        <view id="{{ item.id }}" class="nav-item {{ activeId==item.id?'active':'' }}" bindtap="tabClick">{{ item.name }}</view>
+      </block>
+    </scroll-view>
+    <view class='pro-list'>
+      <block wx:for="{{ productList }}" wx:key="{{ index }}">
+        <view class="pro-item">
+          <image class="img" src="{{ item.pic }}"></image>
+          <view class="name">{{ item.name }}</view>
+          <view class='goods'>
+            <text>¥{{ item.minPrice }}</text>
+            <text>{{ item.views }}人</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
 </view>
